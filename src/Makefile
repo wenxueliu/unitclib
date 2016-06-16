@@ -111,7 +111,7 @@ QUIET_INSTALL = @printf '    %b %b\n' $(LINKCOLOR)INSTALL$(ENDCOLOR) $(BINCOLOR)
 endif
 
 REDIS_SERVER_NAME=redis-server
-REDIS_SERVER_OBJ=main.o
+REDIS_SERVER_OBJ=main.o ae.o zmalloc.o
 
 all: $(REDIS_SERVER_NAME)
 	@echo ""
