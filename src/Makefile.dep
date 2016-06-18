@@ -5,3 +5,4 @@ ae_evport.o: ae_evport.c
 ae_kqueue.o: ae_kqueue.c
 ae_select.o: ae_select.c
 zmalloc.o: zmalloc.c zmalloc.h
+anet.o : anet.h anet.c fmacros.h 
