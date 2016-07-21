@@ -32,6 +32,13 @@
 #define __INTSET_H
 #include <stdint.h>
 
+/**
+ * \brief instead of list with array, so there are the realloc problem
+ *
+ * encoding : 16, 32, 64 but it is auto
+ * length   : auto grow
+ * content  : contain the data with all 2,4 or 8 bytes length
+ */
 typedef struct intset {
     uint32_t encoding;
     uint32_t length;

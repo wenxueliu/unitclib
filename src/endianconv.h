@@ -36,6 +36,12 @@
 #include "config.h"
 #include <stdint.h>
 
+/**
+ * \file little_endian convert to big_endian for uint16, uint32, uint64
+ *
+ *  mem* is general
+ *  int* is useful for interge type
+ */
 void memrev16(void *p);
 void memrev32(void *p);
 void memrev64(void *p);
