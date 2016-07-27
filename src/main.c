@@ -3,6 +3,7 @@
 #include <sys/time.h>
 
 #include "ae.h"
+#include "latency.h"
 
 void test() {
     printf("hello test\n");
@@ -41,6 +42,43 @@ void testPoll() {
     }
     //aeMain(ae);
     //aeDeleteEventLoop(ae);
+}
+
+/**
+ * it can use for many key, but each with different name;
+ * for each key,  the history length is limited by LATENCY_TS_LEN(default 160)
+ *
+ * if latency step is one second, the latter will replace the previous sample,
+ * when the latter and the previous sample are in the one second.
+ */
+void testLatency() {
+
+    long long meter;
+    latencyMonitorInit();
+
+    //event1
+    latencyStartMonitor(meter);
+    latencyAddSample();
+    latencyAddSampleIfNeeded("event1", 1000);
+    latencyAddSampleIfNeeded("event1", 1000);
+    latencyAddSampleIfNeeded("event1", 1001);
+    latencyAddSampleIfNeeded("event1", 1002);
+
+    for (int i =0; i < 170000; i++) {
+        latencyAddSampleIfNeeded("event1", 1000 + i);
+    }
+    latencyEndMonitor(meter);
+    printf("take time %ll ms", meter);
+
+    //event2
+    latencyStartMonitor(meter);
+    for (int i =0; i < 170; i++) {
+        latencyAddSampleIfNeeded("event2", 1000 + i * 2);
+    }
+    latencyEndMonitor(meter);
+    printf("take time %ll ms", meter);
+
+
 }
 
 int main(int argc, char **argv) {
