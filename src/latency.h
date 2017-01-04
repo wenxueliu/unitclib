@@ -34,7 +34,7 @@
 #ifndef __LATENCY_H
 #define __LATENCY_H
 
-#include <stdtype.h>
+#include <stdint.h>
 
 /**
  * \file
@@ -42,10 +42,31 @@
  *
  */
 
+typedef long long mstime_t; /* millisecond time type. */
+
 #define LATENCY_TS_LEN 160 /**< History length for every monitored event. */
 long long latency_monitor_threshold = 100;
 /* Anti-warning macro... */
 #define UNUSED(V) ((void) V)
+
+/*------------------------------------------------------------------------------
+ * Utility functions
+ *--------------------------------------------------------------------------- */
+
+static long long ustime(void) {
+    struct timeval tv;
+    long long ust;
+
+    gettimeofday(&tv, NULL);
+    ust = ((long long)tv.tv_sec)*1000000;
+    ust += tv.tv_usec;
+    return ust;
+}
+
+/* Return the UNIX time in milliseconds */
+mstime_t mstime(void) {
+    return ustime()/1000;
+}
 
 /**
  * Representation of a latency sample: the sampling time and the latency

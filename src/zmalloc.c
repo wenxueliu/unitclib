@@ -418,5 +418,3 @@ size_t zmalloc_get_memory_size(void) {
     return 0L;          /* Unknown OS. */
 #endif
 }
-
-

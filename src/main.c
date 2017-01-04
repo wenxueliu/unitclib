@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-#include "ae.h"
-#include "latency.h"
+#include "main.h"
 
 void test() {
     printf("hello test\n");
+    testPoll();
 }
 
 int timeEvent(struct aeEventLoop *eventLoop, long long id, void *clientData) {
@@ -51,37 +51,34 @@ void testPoll() {
  * if latency step is one second, the latter will replace the previous sample,
  * when the latter and the previous sample are in the one second.
  */
-void testLatency() {
-
-    long long meter;
-    latencyMonitorInit();
-
-    //event1
-    latencyStartMonitor(meter);
-    latencyAddSample();
-    latencyAddSampleIfNeeded("event1", 1000);
-    latencyAddSampleIfNeeded("event1", 1000);
-    latencyAddSampleIfNeeded("event1", 1001);
-    latencyAddSampleIfNeeded("event1", 1002);
-
-    for (int i =0; i < 170000; i++) {
-        latencyAddSampleIfNeeded("event1", 1000 + i);
-    }
-    latencyEndMonitor(meter);
-    printf("take time %ll ms", meter);
-
-    //event2
-    latencyStartMonitor(meter);
-    for (int i =0; i < 170; i++) {
-        latencyAddSampleIfNeeded("event2", 1000 + i * 2);
-    }
-    latencyEndMonitor(meter);
-    printf("take time %ll ms", meter);
-
-
-}
+//void testLatency() {
+//
+//    mstime_t meter;
+//    latencyMonitorInit();
+//
+//    //event1
+//    latencyStartMonitor(meter);
+//    //latencyAddSample();
+//    latencyAddSampleIfNeeded("event1", 1000);
+//    latencyAddSampleIfNeeded("event1", 1000);
+//    latencyAddSampleIfNeeded("event1", 1001);
+//    latencyAddSampleIfNeeded("event1", 1002);
+//
+//    for (int i =0; i < 170000; i++) {
+//        latencyAddSampleIfNeeded("event1", 1000 + i);
+//    }
+//    latencyEndMonitor(meter);
+//    printf("take time %lu ms", meter);
+//
+//    //event2
+//    latencyStartMonitor(meter);
+//    for (int i =0; i < 170; i++) {
+//        latencyAddSampleIfNeeded("event2", 1000 + i * 2);
+//    }
+//    latencyEndMonitor(meter);
+//    printf("take time %ll ms", meter);
+//}
 
 int main(int argc, char **argv) {
     test();
-    testPoll();
 }
