@@ -176,6 +176,12 @@ distclean: clean
 
 .PHONY: distclean
 
+lcov:
+	$(MAKE) gcov
+	@(set -e; cd ..; ./runtest --clients 1)
+	@geninfo -o redis.info .
+	@genhtml --legend -o lcov-html redis.info
+
 gcov:
 	$(MAKE) REDIS_CFLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_TEST" REDIS_LDFLAGS="-fprofile-arcs -ftest-coverage"
 
