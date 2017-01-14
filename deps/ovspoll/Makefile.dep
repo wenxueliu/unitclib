@@ -1,0 +1,18 @@
+latch.o: latch.h latch.c util.h
+guarded-list.o: guarded-list.h guarded-list.c list.h ovs-thread.h compiler.h
+poll-loop.o: poll-loop.h poll-loop.c util.h
+ovs-rcu.o: ovs-rcu.h ovs-rcu.c compiler.h ovs-atomic.h
+seq.o: seq.c seq.c util.h
+dynamic-string.o: dynamic-string.h dynamic-string.c timeval.h compiler.h
+socket-util.o: socket-util.h socket-util.c types.h
+entropy.o: entropy.h entropy.c
+timeval.o: timeval.h timeval.c type-props.h util.h
+random.o: random.h random.c
+hash.o: hash.c hash.h util.h
+hmap.o: hmap.c hmap.h util.h
+sset.o: sset.h sset.c hmap.h util.h
+signals.o: signals.c signals.h type-props.h
+fatal-signal.o: fatal-signal.c fatal-signal.h
+ovs-threah.o: ovs-threah.h ovs-threah.c ovs-atomic.h thread.h util.h
+util.o: util.c util.h compiler.h types.h
+main.o: main.c util.h
